@@ -195,6 +195,7 @@ class Moadian
 
         return $result;
     }
+    
     public function inquiryByUId(array $UIds, $startDateTime = '', $endDateTime = ''){
 
         $this->requestToken();
@@ -218,6 +219,24 @@ class Moadian
 
         return $result;
     }
+
+    public function inquiryByTaxId(array $taxIds){
+
+        $this->requestToken();
+
+        $params = '';
+
+        foreach ($taxIds as $taxId){
+            $params .= 'taxIds='.$taxId.'&';
+        }
+
+        $params =  rtrim($params, '&');
+
+        $result = $this->sendRequest($this->apiBaseUrl.'/inquiry-invoice-status?'.$params, 'GET', $this->token);
+
+        return $result;
+    }
+
     public function getServerInformation(){
 
         $this->requestToken();
